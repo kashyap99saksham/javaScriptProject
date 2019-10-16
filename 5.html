@@ -1,0 +1,199 @@
+<!-- SHOWING OUTPUT ON SCREEN -->
+<!-- Program to add user inputed value everytime he want to add -->
+<html>
+    <head>
+        <link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+        />
+        <script
+			defer
+			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+			crossorigin="anonymous"
+        ></script>
+    </head>
+
+    <!-- Main UI Starts -->
+    <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <span class="navbar-brand mb-0 h1">Xpers</span>
+            <span class="navbar-brand mb-0 h1" id="display">Start Expense</span>
+        </nav>
+        <div class="container-fluid bg-light" style="min-height: 100vh">
+            <div class="container">
+                    <div class="jumbotron mt-4">
+                        <div class="input-group mb-3">
+                            <input
+                                id="input_val"
+                                type="text"
+                                class="form-control"
+                                placeholder="Amount spent"
+                                aria-label="Amount spent"
+                                aria-describedby="spent in rupee"
+                            />
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="spent in rupee">₹</span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="spent at">@</span>
+                            </div>
+                            <input
+                                id="input_desc"
+                                type="text"
+                                class="form-control"
+                                placeholder="spent On"
+                                aria-label="spent On"
+                                aria-describedby="spent at"
+                            />
+                            <div class="input-group-append">
+                                <button id="btn" class="btn btn-outline-primary" type="button" id="button-addon2">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                <!-- <input id="input_val" type="text">
+                <input id="input_desc">
+                <button id="btn"> + </button> -->
+                <div>
+                    <ul class="list-group" id="table">
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+        
+        <script>
+            
+
+            //Getting query of table
+            const TableElement = document.querySelector("#table");
+
+            //Creating array which contains all expenses with amount and description
+            const AllExpense = [];
+           
+            //Getting query of input discription
+            const desc_element = document.querySelector("#input_desc");     //desc = description
+
+            const disp_element = document.querySelector("#display");        //disp = display
+            let total = 0;
+            //Showing starting Value
+            // disp_element.textContent = total;
+            
+            function adding()
+            {
+               
+                 //Creating object which contains every expense
+                const ExpenseItems = {};
+
+                //Getting value from element
+                const data = element.value;
+                // console.log({ data });
+                
+                //Convert into int
+                const num = parseInt(data,10);
+                total = total + num;
+                //SHOWING TOTAL IN CONSOL
+                // console.log({ total });      
+                
+                const text = `Expense is ${total}`;
+                //Showing total on screen
+                disp_element.textContent = text;
+                
+                //Getting description 
+                const desc = desc_element.value;
+                // console.log({ desc });
+
+                //Getting Date
+                 const date = new Date();
+                // console.log(date);
+
+                //The way of assining the abjects and array 
+                ExpenseItems.Desription = desc;
+                ExpenseItems.Amount = num;
+                ExpenseItems.Item_date = date;
+                AllExpense.push(ExpenseItems);
+
+                // console.clear();
+
+                //Showing array in tablular view in console
+                // console.table(AllExpense);  
+
+                // const d1 = AllExpense[0];
+                // const d2 = AllExpense[1];
+                
+                //Just showing every expense and description(ONLY ONE AT TIME BUT WE WANT LIST OF ALL)
+                // const TableContent = `Expense : ${num} :: Desc :${desc}`;
+                // TableElement.innerHTML = TableContent; 
+
+                //[M.IMP]USING MAP FUNCTION (IF DOUBT IN MAPPING REFER LINK:- https://www.youtube.com/watch?v=d-XvHchmoVY)
+                const AllExpenseHtml = AllExpense.map(expenses => Creating(expenses));
+
+
+                const str_of_all_expense = AllExpenseHtml.join("");     //AllExpenseHtml is Array so converting into string  || And "" is use for seperate with space rather then comma            
+                TableElement.innerHTML = str_of_all_expense;
+
+            }
+
+            //Delete Function
+            function delete_item(dateString)
+            {
+                // const NewArr = [];
+                let del_amount;
+                console.log(dateString); 
+                for(let i=0;i<AllExpense.length;i++)
+                {
+                    if(AllExpense[i].Item_date.valueOf()==dateString)
+                    {
+                        del_amount = AllExpense[i].Amount;
+                        AllExpense.splice(i,1);
+                    }
+                }  
+                total = total-del_amount;
+                const text = `Expense is ${total}`;
+                //Showing total on screen
+                disp_element.textContent = text;
+
+                //Showing the deleted result just after click on delete button
+                const AllExpenseHtml = AllExpense.map(expenses => Creating(expenses));
+
+
+                const str_of_all_expense = AllExpenseHtml.join("");     //AllExpenseHtml is Array so converting into string  || And "" is use for seperate with space rather then comma            
+                TableElement.innerHTML = str_of_all_expense;
+                // console.table(AllExpense);
+            }
+
+
+            //Creating View Outside
+            function Creating(expenses)
+            {
+                const item = `<li class="list-group-item d-flex justify-content-between">
+							<div class="d-flex flex-column">
+								${expenses.Desription}
+								<small class="text-muted">${expenses.Item_date.toLocaleString('en-US',{year:'numeric',month:'long',day:'numeric'})}</small>       <!--Getting only date from all huge detail--->
+							</div>
+							<div>
+								<span class="px-5">
+									Rs.${expenses.Amount}
+								</span>
+								<button type="button" class="btn btn-outline-danger btn-sm" id="delete_item" onclick="delete_item(${expenses.Item_date.valueOf()})">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</div>
+						</li>`;
+                        return item;
+            }
+
+            //Getting input query element 
+            const btn_element = document.querySelector("#btn");
+            const element = document.querySelector("#input_val");
+            
+            btn_element.addEventListener("click",adding,false);
+
+        </script>
+    </body>
+</html>
