@@ -1,0 +1,38 @@
+<!-- Program to add user inputed value everytime he want to add -->
+<html>
+    <head>
+        <style>
+            body{
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                height: 100vh;
+            }
+        </style>
+    </head>
+    <body>
+        <input id="input_val" type="text"></input>
+        <button id="btn"> + </button>
+        <script>
+            let total = 0;
+            function adding()
+            {
+                //Getting value from element
+                const data = element.value;
+                console.log({ data });
+                //Convert into int
+                const num = parseInt(data,10);
+                total = total + num;
+                console.log({ total }); 
+            }
+
+            //Getting input query element 
+            const input_element = document.querySelector("#btn");
+            const element = document.querySelector("#input_val");
+            input_element.addEventListener("click",adding,false);
+            
+
+
+        </script>
+    </body>
+</html>

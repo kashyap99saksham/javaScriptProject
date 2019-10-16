@@ -1,0 +1,94 @@
+<!-- SHOWING OUTPUT ON SCREEN -->
+<!-- Program to add user inputed value everytime he want to add -->
+<html>
+    <head>
+        <style>
+            body{
+                align-items: center;
+                display: flex;
+                flex-direction: column;     /*COOL THING*/
+                justify-content: center;
+                height: 100vh;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="display"></h1>
+        <input id="input_val" type="text">
+        <input id="input_desc">
+        <button id="btn"> + </button>
+        <div id="table">Here i am</div>
+        <script>
+            //Getting query of table
+            const TableElement = document.querySelector("#table");
+
+            //Creating array which contains all expenses with amount and description
+            const AllExpense = [];
+           
+            //Getting query of input discription
+            const desc_element = document.querySelector("#input_desc");     //desc = description
+
+            const disp_element = document.querySelector("#display");        //disp = display
+            let total = 0;
+            disp_element.textContent = total;
+            
+            function adding()
+            {
+                 //Creating object which contains every expense
+                const ExpenseItems = {};
+
+                //Getting value from element
+                const data = element.value;
+                // console.log({ data });
+                
+                //Convert into int
+                const num = parseInt(data,10);
+                total = total + num;
+                //SHOWING TOTAL IN CONSOL
+                // console.log({ total });      
+                
+                const text = `Expense is ${total}`;
+                //Showing total on screen
+                disp_element.textContent = text;
+                
+                //Getting description 
+                const desc = desc_element.value;
+                // console.log({ desc });
+
+                //The way of assining the abjects and array 
+                ExpenseItems.Desription = desc;
+                ExpenseItems.Amount = num;
+                AllExpense.push(ExpenseItems);
+
+                // console.clear();
+
+                //Showing array in tablular view in console
+                // console.table(AllExpense);  
+
+                // const d1 = AllExpense[0];
+                // const d2 = AllExpense[1];
+                
+                //Just showing every expense and description(ONLY ONE AT TIME BUT WE WANT LIST OF ALL)
+                // const TableContent = `Expense : ${num} :: Desc :${desc}`;
+                // TableElement.innerHTML = TableContent; 
+
+                //[M.IMP]USING MAP FUNCTION (IF DOUBT IN MAPPING REFER LINK:- https://www.youtube.com/watch?v=d-XvHchmoVY)
+                const AllExpenseHtml = AllExpense.map(expenses => {
+                    return  `<div> ${expenses.Amount} ::  ${expenses.Desription} </div>`;
+                })
+                const str_of_all_expense = AllExpenseHtml.join("");     //AllExpenseHtml is Array so converting into string  || And "" is use for seperate with space rather then comma            
+                TableElement.innerHTML = str_of_all_expense;
+
+            }
+
+            //Getting input query element 
+            const btn_element = document.querySelector("#btn");
+            const element = document.querySelector("#input_val");
+            
+            btn_element.addEventListener("click",adding,false);
+            
+
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!--
+    Program to increament everytime whenever user clicks on the button
+-->
+<html>
+    <head>
+        <style>
+            body{
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                height: 100vh;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <button id="btn"> + </button>
+        <script>
+            let total = 0;
+
+            function increament_val()
+            {
+                total++;
+                console.log(total);     //CHECKING IN CONSOLE OF BROWSER
+            }
+            //Get the button element
+            const element = document.querySelector("#btn");
+
+            //Listen to click event
+            element.addEventListener("click",increament_val,false); 
+
+        </script>
+    </body>
+    
+</html>
