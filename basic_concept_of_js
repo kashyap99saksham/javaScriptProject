@@ -1,0 +1,185 @@
+//To see the changes in console press cntl+f5
+// console.log("Helloworld");
+
+//LET v/s VAR
+//NOTE: 3 MAIN DEIFFERENCE BETWEEN LET AND VAR
+// 1-> (LET) NEVER ACCESSIBLE OUTSIDE ANY OF THE SCOPE BUT VAR IS ACCESSIBLE EXCEPT FUNCTION
+// 2->  (VAR) IS GIVES UNDEFINED BEFORE DEFINING AND (LET) GIVES ERROR BEFORE DEFINING 
+// 3->  (VAR) CAN BE RE-ASSIGNING BUT (LET) CANNOT  
+
+//1-> 
+{
+    var fname = "saksham";
+    let lname = "kashyap";
+    console.log(fname);
+    console.log(lname);
+}
+// console.log(a);     //a is var type so it is accessible after its scope
+// console.log(b);     //b is let type so it is NOT accessible after its scope
+
+//BUT IN FUNCTION VAR IS ALSO NOT ACCESSIBLE
+function CheckAccess()
+{
+    var f = "prince";
+    console.log(f);
+}
+// console.log(f);  //ERROR Var is not accessible outside a function
+CheckAccess();
+
+//2->
+console.log(a);     //VAR SHOWING UNDEFINED BUT LET GIVES ERROR
+var a = "hello";
+console.log(a);
+
+
+//3->
+var x1 = "abc";
+
+//some code ...
+var x1 = "xyz";     //ALLOWED
+
+let x2 = "abc";
+
+//some code ...
+// let x2 = "xyz";     //NOT - ALLOWED
+
+
+
+//Most  ImP thing about var and let : (IF point is not clear watch mysirg video  )
+for(var i=0;i<5;i++)
+{
+    setTimeout(function(){      //This function takes 2 arg. 1st is callback function and 2nd is time in ms
+        console.log(i);     //5 5 5 5 5 
+    },2000);
+}
+for(let j=0;j<5;j++)
+{
+    setTimeout(function(){
+        console.log(j);     //0 1 2 3 4  
+    },2000);
+}
+
+
+//CONST VARIABLE CAN BE DECLARED ONLY ONCE
+//CAN NOT ASSIGN NEW VALUE
+//SIMILAR SCOPING RULE AS LET
+const person = {
+    name:"Saksham",
+    age:20,
+    company:"Google",
+    address:"up"
+};
+person.name = "kashyap";    //ALLOWED EVEN PERSON IS CONST WHY ?? COZ WE ARE NOT CHANGE THE WHOLE OBJECT OF PERSON WE ARE JUST CHANGING THE VALUE 
+// person = {height:"6"};  //IT IS NOT ALLOWED
+console.log(person);
+
+console.clear();    //Clear console to see the latest outputs
+
+
+
+//TEMPLATES literal: It REMEMBER THE FORMATTING || NO NEED OF \t \n AT OL
+// IT is nothing but ``
+const p = `
+    My name is ${person.name}
+    My age is ${person.age}    
+`;
+console.log(p);
+
+//USING TEMPLATE LITERAL FOR PRINTING HTML
+const disp = `
+    <h1>HELLO ${person.name}</h1>
+    <ul>
+        <li>Smart</li>
+        <li>Loyal</li>
+    </ul>
+`;
+document.body.innerHTML = disp;
+
+
+
+//One more intresting thing about Template literal:
+// We can pass whole literal to function very easily
+function getting_whole_literal(arr,arg1,arg2,arg3,arg4)     //FIRST ARG IS ALWAYS ARRAY WHICH HAVE NORMAL TEXT
+// function getting_whole_literal(arr,...arg)  //... is rest operator used when we dont know how many arg are coming (Works as array)
+{
+    console.log(arr);
+    console.log(arg1);
+    console.log(arg2);
+    console.log(arg3);
+    console.log(arg4);
+}
+const lit = getting_whole_literal`
+    Hey I m Normal Text and goes into arr of funtion and 
+    rest of values goes into arg1 ,arg2 .....
+    ${person.name}
+    ${person.age}
+    ${person.company}
+    ${person.address}
+`;
+
+
+//ARROW FUNCTION =>
+// 1.CONSIZE CODE
+// IMPLICIT return
+// NO 'THIS' BINDING
+
+// const square = function(x){          //NORMAL FUNCTION
+//     return x*x;    
+// }
+//WRITE WITH ARROW FUNCTION (WORK SAME AS NORMAL)
+const square = x => x*x;        //REMOVE FUNCTION,RETURN
+const square2 = (x2,y) => x2*y;   
+console.log(square2(5,10));
+
+console.clear();
+const person2 = [
+    "Saksham",
+    20,
+    "Google",
+    "up"
+];
+//ARROW FUNCTION IN MAP FUNCTION
+const newArr = person2.map(attr => ({name: `${attr}`}));
+console.table(newArr);
+
+
+//DESTRUCTURING OBJECTS
+teachers = {
+    firstname:"Saksham",
+    lastname:"kashyap",
+    subject:"es6",
+    age:20
+}
+
+//THIS IS VERY LENGTHY METHOD
+// const firstname = teachers.firstname;
+// const lastname = teachers.lastname;
+// const subject = teachers.subject;
+// const age = teachers.age;
+
+const {firstname,lastname,subject,age} = teachers;      
+
+console.log(firstname,lastname,subject,age);
+
+//AND IF TEACHERS ARE MORE THAN 1
+teachers2 = [{
+        firstname:"Saksham",
+        lastname:"kashyap",
+        subject:"es6",
+        age:20
+    },
+    {
+        firstname:"aditi",
+        lastname:"sinha",
+        subject:"python",
+        age:19
+    }
+]
+console.clear();
+teachers2.map(val =>{
+    const {firstname,lastname,subject,age} = val;
+    console.log(firstname,lastname,subject,age);
+});     
+ 
+
+console.clear();
